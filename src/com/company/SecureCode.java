@@ -3,8 +3,12 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 public class SecureCode {
 
-    public static String getHex(byte[] values) {
-        return new DigestUtils("SHA3-256").digestAsHex(values);
+    public static String getKey(byte[] values) {
+        StringBuilder stringKey = new StringBuilder();
+        for (byte k : values) {
+            stringKey.append(String.format("%02X", k));
+        }
+        return stringKey.toString();
     }
 
     public static String getHex(String value) {

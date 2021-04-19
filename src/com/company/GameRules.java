@@ -31,9 +31,9 @@ public class GameRules {
             if (pcMove == userMove) {
                 return "No";
             } else if (pcMove > userMove && countOfOptions >= sub || pcMove < userMove && countOfOptions < sub) {
-                return "PC is ";
+                return "PC is";
             } else {
-                return "You are ";
+                return "You are";
             }
     }
 }

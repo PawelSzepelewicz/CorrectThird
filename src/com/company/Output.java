@@ -2,25 +2,26 @@ package com.company;
 import java.security.SecureRandom;
 
 import static com.company.SecureCode.getHex;
+import static com.company.SecureCode.getKey;
 
 public class Output {
     public static void playGame(String[] args) {
-        GameRules game = new GameRules();
 
-        byte[] secureCode = new byte[128];
+        GameRules game = new GameRules();
+        byte[] secureCode = new byte[16];
         new SecureRandom().nextBytes(secureCode);
-        String firstHMAC = getHex(secureCode);
+        String key = getKey(secureCode);
 
         int pcMove = game.getComputerMove(args);
-        String pcMoveHMAC = getHex(firstHMAC + args[pcMove-1]);
-        System.out.println("HMAC + PC move: " + pcMoveHMAC.toUpperCase());
+        String pcMoveHMAC = getHex(key + args[pcMove-1]);
+        System.out.println("KEY + PC move: " + pcMoveHMAC.toUpperCase());
         showListOfMoves(args);
         int userMove = game.receiveMove(args);
         if(userMove==0){System.out.println("You left the game");
         } else{
         String winner = game.determineWinner(args, userMove, pcMove);
         showResultOfGame(args, winner, userMove, pcMove);
-        System.out.println("HMAC: " + firstHMAC.toUpperCase());
+        System.out.println("KEY: " + key.toUpperCase());
         }
     }
     private static void showListOfMoves(String[] args) {
